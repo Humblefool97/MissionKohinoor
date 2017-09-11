@@ -4,16 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Vertex<T> {
-    long id;
+
+    int id;
     T data;
+
+
 
     List<Vertex<T>> adjVertexList = new ArrayList<>();
     List<Edge<T>> edgeList = new ArrayList<>();
 
-    public Vertex(long id) {
+    public Vertex(int id) {
         this.id = id;
     }
 
+    public int getId() {
+        return id;
+    }
 
     public T getData() {
         return data;
@@ -31,7 +37,9 @@ public class Vertex<T> {
     public List<Edge<T>> getEdgeList() {
         return edgeList;
     }
-
+    public List<Vertex<T>> getAdjVertexList() {
+        return adjVertexList;
+    }
     @Override
     public boolean equals(Object obj) {
         if (obj == null)

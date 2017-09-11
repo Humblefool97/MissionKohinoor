@@ -1,14 +1,11 @@
 package adjlist;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Graph<T> {
 
-    Map<Long, Vertex<T>> allVertex;
+    Map<Integer, Vertex<T>> allVertex;
     List<Edge<T>> allEdges;
     boolean isDirected;
 
@@ -19,11 +16,11 @@ public class Graph<T> {
     }
 
 
-    public void addEdge(long id1, long id2) {
+    public void addEdge(int id1, int id2) {
         addEdge(id1, id2, 0);
     }
 
-    public void addEdge(long id1, long id2, int weight) {
+    public void addEdge(int id1, int id2, int weight) {
         //Search for V1,V2,if it is there leave
         //else add it
         Vertex<T> v1 = getVertexById(id1);
@@ -37,12 +34,12 @@ public class Graph<T> {
 
     }
 
-    private Vertex<T> getVertexById(long id1) {
+    private Vertex<T> getVertexById(int id1) {
         Vertex<T> v1 = null;
         if (allVertex.containsKey(id1)) {
             v1 = allVertex.get(id1);
         } else {
-            v1 = new Vertex<>(id1);
+            v1 = new Vertex(id1);
             allVertex.put(id1, v1);
         }
 
@@ -57,7 +54,7 @@ public class Graph<T> {
         return isDirected;
     }
 
-    public Map<Long, Vertex<T>> getAllVertex() {
+    public Map<Integer, Vertex<T>> getAllVertex() {
         return allVertex;
     }
 
@@ -69,6 +66,78 @@ public class Graph<T> {
         }
 
         return false;
+    }
+
+    public int getDegree() {
+        return allVertex.size();
+    }
+
+    /**
+     * O(V+E),O(V)
+     *
+     * @param v startVertex
+     */
+
+    public void dfs(Vertex<T> v) {
+        System.out.println("/**********DFS************/");
+
+        boolean[] visited = new boolean[getDegree()];
+        Arrays.fill(visited, false);
+
+        Stack<Vertex<T>> stack = new Stack<>();
+        stack.push(v);
+        visited[v.getId()] = true;
+        System.out.println(v.getId());
+
+        while (!stack.isEmpty()) {
+            v = stack.peek();
+
+            v = getAdjacentVertex(v, visited);
+            if (v == null)
+                stack.pop();
+            else {
+                stack.push(v);
+                visited[v.getId()] = true;
+                System.out.println(v.getId());
+            }
+        }
+    }
+
+    private Vertex<T> getAdjacentVertex(Vertex<T> v, boolean[] visited) {
+        List<Vertex<T>> vertexList = v.getAdjVertexList();
+        Iterator<Vertex<T>> it = vertexList.listIterator();
+        while (it.hasNext()) {
+            Vertex<T> n = it.next();
+            if (!visited[n.getId()])
+                return n;
+        }
+        return null;
+    }
+
+    public void bfs(Vertex<T> v) {
+        System.out.println("/**********BFS************/");
+
+        boolean[] visited = new boolean[getDegree()];
+        Arrays.fill(visited, false);
+
+        Queue<Vertex<T>> queue = new LinkedList<>();
+        queue.add(v);
+        visited[v.getId()] = true;
+
+        while (!queue.isEmpty()) {
+            v = queue.poll();
+            System.out.println(v.getId());
+
+            List<Vertex<T>> adjVertexList = v.getAdjVertexList();
+            Iterator<Vertex<T>> it = adjVertexList.listIterator();
+            while (it.hasNext()) {
+                Vertex<T> n = allVertex.get(it.next().getId());
+                if (!visited[n.getId()]) {
+                    visited[n.getId()] = true;
+                    queue.add(n);
+                }
+            }
+        }
     }
 
 }
