@@ -140,4 +140,58 @@ public class Graph<T> {
         }
     }
 
+
+    public boolean hasLoopUsingDisjointSet() {
+        return false;
+    }
+
+    public boolean hasLoopUsingDfs() {
+        boolean visited[] = new boolean[getDegree()];
+        Arrays.fill(visited, false);
+
+        for (Vertex<T> adjVertex : getAllVertex().values()) {
+            if (!visited[adjVertex.getId()]) {
+                if (hasLoop(adjVertex, visited, null))
+                    return true;
+            }
+        }
+        return false;
+
+    }
+
+
+    private boolean hasLoopUsingDfs(Vertex<T> vertex, boolean[] visited, Vertex<T> parent) {
+        visited[vertex.getId()] = true;
+        for (Vertex<T> adjVertex : vertex.getAdjVertexList()) {
+            if (!visited[vertex.getId()] && hasLoopUsingDfs(adjVertex, visited, vertex))
+                return true;
+            else if (parent == adjVertex)
+                return true;
+        }
+        return false;
+    }
+
+    public boolean hasLoopForDirectedGraph(){
+        return  false;
+    }
+
+
+    private boolean hasLoop(Vertex<T> vertex,boolean [] visited,boolean []recStack){
+        if(!visited[vertex.getId()]){
+            visited[vertex.getId()] = true;
+            recStack[vertex.getId()]=true;
+
+            for(Vertex<T> adjVertex:vertex.getAdjVertexList()){
+                if(!visited[adjVertex.getId()] && hasLoop(adjVertex,visited,recStack))
+                    return true;
+                else if(recStack[vertex.getId()])
+                    return true;
+            }
+        }
+
+        recStack[vertex.getId()] = false;
+        return false;
+    }
+
+
 }
