@@ -18,8 +18,14 @@ public class Driver {
         graph.dfs(graph.allVertex.get(0));
         graph.bfs(graph.allVertex.get(0));
 
+        Graph<Integer> graph2 = new Graph<>(false);
+        graph2.addEdge(0, 1);
+        graph2.addEdge(0, 2);
+        graph2.addEdge(2, 3);
 
-
-
+        if(graph2.hasLoopUsingDisjointSet())
+            System.out.println("has loop");
+        else
+            System.out.println("Doesn't have loop");
     }
 }

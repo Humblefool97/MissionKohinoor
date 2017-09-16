@@ -173,7 +173,6 @@ public class Graph<T> {
 
     }
 
-
     private boolean hasLoopUsingDfs(Vertex<T> vertex, boolean[] visited, Vertex<T> parent) {
         visited[vertex.getId()] = true;
         for (Vertex<T> adjVertex : vertex.getAdjVertexList()) {
@@ -208,4 +207,44 @@ public class Graph<T> {
     }
 
 
+    /**
+     * Finding MST using Kruskal's algorithm with Disjoint set
+     *
+     * @return
+     */
+    private Edge<T>[] mstWithDisjointSet() {
+        List<Edge<T>> edgeList = getAllEdges();
+        Collections.sort(edgeList, new EdgeComparator());
+
+        Edge<T>[] result = new Edge[getDegree() - 1];
+        Arrays.fill(result, null);
+
+        DisjointSet<T> ds = new DisjointSet<>();
+        for (Vertex<T> vertex : getAllVertex().values()) {
+            ds.makeSet(vertex);
+        }
+
+        int index = 0;
+        for (Edge<T> edge : getAllEdges()) {
+            if (ds.union(edge.v1.getId(), edge.v2.getId())) {
+                result[index++] = edge;
+            }
+        }
+        if (index != 0)
+            return result;
+
+        return null;
+
+    }
+
+    class EdgeComparator implements Comparator<Edge<T>> {
+
+        @Override
+        public int compare(Edge<T> edge1, Edge<T> edge2) {
+            if (edge1.weight <= edge2.weight)
+                return -1;
+
+            return 1;
+        }
+    }
 }
