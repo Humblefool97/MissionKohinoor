@@ -1,4 +1,4 @@
-package adjlist;
+package com.fbp.example.graph.adjlist;
 
 public class Edge<T> {
     Vertex<T> v1;

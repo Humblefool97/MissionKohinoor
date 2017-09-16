@@ -1,4 +1,4 @@
-package adjlist;
+package com.fbp.example.graph.adjlist;
 
 
 import java.util.*;
@@ -31,6 +31,8 @@ public class Graph<T> {
         v1.addEdge(v2, edge);
         if (!isDirected)
             v2.addEdge(v1, edge);
+
+        allEdges.add(edge);
 
     }
 
@@ -142,6 +144,18 @@ public class Graph<T> {
 
 
     public boolean hasLoopUsingDisjointSet() {
+        DisjointSet<T> ds = new DisjointSet<>();
+        //Make set for all the vertices
+        for (Vertex<T> vertex : getAllVertex().values()) {
+            ds.makeSet(vertex);
+        }
+        //for each edge,get v1 & v2
+        for (Edge<T> edge : getAllEdges()) {
+            Vertex<T> v1 = edge.v1;
+            Vertex<T> v2 = edge.v2;
+            if (!ds.union(v1.getId(), v2.getId()))
+                return true;
+        }
         return false;
     }
 
@@ -171,20 +185,20 @@ public class Graph<T> {
         return false;
     }
 
-    public boolean hasLoopForDirectedGraph(){
-        return  false;
+    public boolean hasLoopForDirectedGraph() {
+        return false;
     }
 
 
-    private boolean hasLoop(Vertex<T> vertex,boolean [] visited,boolean []recStack){
-        if(!visited[vertex.getId()]){
+    private boolean hasLoop(Vertex<T> vertex, boolean[] visited, boolean[] recStack) {
+        if (!visited[vertex.getId()]) {
             visited[vertex.getId()] = true;
-            recStack[vertex.getId()]=true;
+            recStack[vertex.getId()] = true;
 
-            for(Vertex<T> adjVertex:vertex.getAdjVertexList()){
-                if(!visited[adjVertex.getId()] && hasLoop(adjVertex,visited,recStack))
+            for (Vertex<T> adjVertex : vertex.getAdjVertexList()) {
+                if (!visited[adjVertex.getId()] && hasLoop(adjVertex, visited, recStack))
                     return true;
-                else if(recStack[vertex.getId()])
+                else if (recStack[vertex.getId()])
                     return true;
             }
         }

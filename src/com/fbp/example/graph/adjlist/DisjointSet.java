@@ -1,4 +1,4 @@
-package adjlist;
+package com.fbp.example.graph.adjlist;
 
 import java.util.HashMap;
 import java.util.Map;
