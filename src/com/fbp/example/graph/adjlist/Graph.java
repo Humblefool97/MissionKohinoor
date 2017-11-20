@@ -225,7 +225,7 @@ public class Graph<T> {
         }
 
         int index = 0;
-        for (Edge<T> edge : getAllEdges()) {
+        for (Edge<T> edge : edgeList) {
             if (ds.union(edge.v1.getId(), edge.v2.getId())) {
                 result[index++] = edge;
             }

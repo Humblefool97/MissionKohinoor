@@ -1,12 +1,12 @@
 package com.fbp.example.trees.core;
 
 /**
- * Created by rajeevranganathan on 08/10/17 for TheLastChance.
+ * Created by rajeevranganathan
  */
 public class TreeNode {
-    private int val;
-    private TreeNode left;
-    private TreeNode right;
+    public int val;
+    public TreeNode left;
+   public TreeNode right;
 
     public TreeNode(int val) {
         this.val = val;
@@ -60,7 +60,7 @@ public class TreeNode {
         return right;
     }
 
-    public int getVal(){
+    public int getVal() {
         return val;
     }
 

@@ -32,5 +32,22 @@ public class InsertSortedPosition {
         return i;
     }
 
+    public int searchInsertFastest(ArrayList<Integer> a, int b) {
+        int n = a.size();
+
+        int start = 0;
+        int end = n - 1;
+
+        int mid = 0;
+        while (start <= end) {
+            mid = (start + end) / 2;
+            if (a.get(mid) == b) return mid;
+            if (a.get(mid) < b) start = mid + 1;
+            else end = mid - 1;
+        }
+
+        return start;
+    }
+
 
 }

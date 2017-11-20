@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by rajeevranganathan on 16/09/17 for MissionKohinoor.
+ * Created by rajeevranganathan
  */
 public class DisjointSet<T> {
     Map<Integer,Node> disjointSet = new HashMap<>();

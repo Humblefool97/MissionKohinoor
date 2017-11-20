@@ -1,7 +1,7 @@
 package com.fbp.example.graph.adjlist;
 
 /**
- * Created by rajeevranganathan on 11/09/17 for MissionKohinoor.
+ * Created by rajeevranganathan
  */
 public class Driver {
 

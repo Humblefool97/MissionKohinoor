@@ -1,7 +1,7 @@
 package com.fbp.example.linkedlist;
 
 /**
- * Created by rajeevranganathan on 18/09/17 for MissionKohinoor.
+ * Created by rajeevranganathan
  */
 public class Driver {
     public static void main(String[] args) {
